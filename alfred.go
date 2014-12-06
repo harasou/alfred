@@ -39,5 +39,5 @@ func (workflow *Items) AddItem(item *Item) {
 
 func (workflow *Items) Print() {
 	var xmlOutput, _ = xml.MarshalIndent(workflow, "", "  ")
-	fmt.Print(xmlHeader, string(xmlOutput))
+	fmt.Println(xmlHeader, string(xmlOutput))
 }

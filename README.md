@@ -22,23 +22,25 @@ func main() {
   wf := alfred.Workflow()
   defer wf.Print()
 
-  item := &alfred.Item{}
-  item.Uid = "desktop"
-  item.Arg = "~/Desktop"
-  item.Valid = "YES"
-  item.Autocomplete = "Desktop"
-  item.Title = "Desktop"
-  item.Subtitle = "~/Desktop"
-  item.Icon = "~/Desktop"
-  wf.AddItem(item)
+  wf.AddItem(&alfred.Item{
+    Uid:          "desktop",
+    Arg:          "~/Desktop",
+    Valid:        "YES",
+    Autocomplete: "Desktop",
+    Title:        "Desktop",
+    Subtitle:     "~/Desktop",
+    Icon:         "~/Desktop",
+  })
 
-  item = &alfred.Item{}
+  item := &alfred.Item{}
   item.Uid = "flickr"
   item.Valid = "no"
   item.Autocomplete = "flickr"
   item.Title = "Flickr"
   item.Icon = "flickr.png"
+
   wf.AddItem(item)
+
 }
 ```
 
