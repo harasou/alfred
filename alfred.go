@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-const xmlHeader = `<?xml version="1.0" encoding="UTF-8"?>` + "\n"
+const xmlHeader = `<?xml version="1.0"?>`
 
 type Items struct {
 	Items   []Item
@@ -13,13 +13,14 @@ type Items struct {
 }
 
 type Item struct {
-	Uid          string `xml:"uid,attr"`
-	Valid        string `xml:"valid,attr"`
-	Arg          string `xml:"arg,attr"`
-	Autocomplete string `xml:"autocomplete,attr"`
+	Uid          string `xml:"uid,attr,omitempty"`
+	Arg          string `xml:"arg,attr,omitempty"`
+	Valid        string `xml:"valid,attr,omitempty"`
+	Autocomplete string `xml:"autocomplete,attr,omitempty"`
+	Type         string `xml:"type,attr,omitempty"`
 	Title        string `xml:"title"`
-	Subtitle     string `xml:"subtitle"`
-	Icon         string `xml:"icon"`
+	Subtitle     string `xml:"subtitle,omitempty"`
+	Icon         string `xml:"icon,omitempty"`
 
 	XMLName struct{} `xml:"item"`
 }
@@ -39,5 +40,5 @@ func (workflow *Items) AddItem(item *Item) {
 
 func (workflow *Items) Print() {
 	var xmlOutput, _ = xml.MarshalIndent(workflow, "", "  ")
-	fmt.Println(xmlHeader, string(xmlOutput))
+	fmt.Printf("%v\n%v", xmlHeader, string(xmlOutput))
 }
