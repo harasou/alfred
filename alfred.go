@@ -3,26 +3,45 @@ package alfred
 import (
 	"encoding/xml"
 	"fmt"
+	"log"
 )
 
 const xmlHeader = `<?xml version="1.0"?>`
 
 type Items struct {
-	Items   []Item
 	XMLName struct{} `xml:"items"`
+
+	Items []Item
 }
 
 type Item struct {
+	XMLName struct{} `xml:"item"`
+
 	Uid          string `xml:"uid,attr,omitempty"`
 	Arg          string `xml:"arg,attr,omitempty"`
 	Valid        string `xml:"valid,attr,omitempty"`
 	Autocomplete string `xml:"autocomplete,attr,omitempty"`
 	Type         string `xml:"type,attr,omitempty"`
-	Title        string `xml:"title"`
-	Subtitle     string `xml:"subtitle,omitempty"`
-	Icon         string `xml:"icon,omitempty"`
 
-	XMLName struct{} `xml:"item"`
+	Title    string     `xml:"title"`
+	Subtitle []Subtitle `xml:"subtitle,omitempty"`
+	Icon     Icon       `xml:"icon,omitempty"`
+	Text     []Text     `xml:"text,omitempty"`
+}
+
+type Subtitle struct {
+	Mod  string `xml:"mod,attr,omitempty"`
+	Text string `xml:",chardata"`
+}
+
+type Icon struct {
+	Type string `xml:"type,attr,omitempty"`
+	Text string `xml:",chardata"`
+}
+
+type Text struct {
+	Type string `xml:"type,attr,omitempty"`
+	Text string `xml:",chardata"`
 }
 
 func Workflow() *Items {
@@ -39,6 +58,10 @@ func (workflow *Items) AddItem(item *Item) {
 }
 
 func (workflow *Items) Print() {
-	var xmlOutput, _ = xml.MarshalIndent(workflow, "", "  ")
-	fmt.Printf("%v\n%v", xmlHeader, string(xmlOutput))
+	var xmlOutput, err = xml.MarshalIndent(workflow, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	fmt.Printf("%v\n%v\n", xmlHeader, string(xmlOutput))
 }

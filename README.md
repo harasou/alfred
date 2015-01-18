@@ -30,8 +30,8 @@ func main() {
 		Autocomplete: "Desktop",
 		Type:         "file",
 		Title:        "Desktop",
-		Subtitle:     "~/Desktop",
-		Icon:         "~/Desktop",
+		Subtitle:     []alfred.Subtitle{{Text: "~/Desktop"}},
+		Icon:         alfred.Icon{Text: "~/Desktop", Type: "fileicon"},
 	})
 
 	wf.AddItem(&alfred.Item{
@@ -39,7 +39,7 @@ func main() {
 		Valid:        "no",
 		Autocomplete: "flickr",
 		Title:        "Flickr",
-		Icon:         "flickr.png",
+		Icon:         alfred.Icon{Text: "flickr.png"},
 	})
 
 	wf.AddItem(&alfred.Item{
@@ -47,8 +47,8 @@ func main() {
 		Autocomplete: "My holiday photo",
 		Type:         "file",
 		Title:        "My holiday photo",
-		Subtitle:     "~/Pictures/My holiday photo.jpg",
-		Icon:         "public.jpeg",
+		Icon:         alfred.Icon{Text: "public.jpeg", Type: "filetype"},
+		Subtitle:     []alfred.Subtitle{{Text: "~/Pictures/My holiday photo.jpg"}},
 	})
 
 	wf.AddItem(&alfred.Item{
@@ -58,8 +58,19 @@ func main() {
 		Autocomplete: "Home",
 		Type:         "file",
 		Title:        "Home Folder",
-		Subtitle:     "Home folder ~/",
-		Icon:         "~/",
+		Icon:         alfred.Icon{Text: "~/", Type: "fileicon"},
+		Subtitle: []alfred.Subtitle{
+			{Text: "Home folder ~/"},
+			{Text: "Subtext when shift is pressed", Mod: "shift"},
+			{Text: "Subtext when fn is pressed", Mod: "fn"},
+			{Text: "Subtext when ctrl is pressed", Mod: "ctrl"},
+			{Text: "Subtext when alt is pressed", Mod: "alt"},
+			{Text: "Subtext when cmd is pressed", Mod: "cmd"},
+		},
+		Text: []alfred.Text{
+			{Text: "Text when copying", Type: "copy"},
+			{Text: "Text for LargeType", Type: "largetype"},
+		},
 	})
 
 }
@@ -68,12 +79,13 @@ func main() {
 Output
 
 ```xml
+
 <?xml version="1.0"?>
- <items>
+<items>
   <item uid="desktop" arg="~/Desktop" valid="YES" autocomplete="Desktop" type="file">
     <title>Desktop</title>
     <subtitle>~/Desktop</subtitle>
-    <icon>~/Desktop</icon>
+    <icon type="fileicon">~/Desktop</icon>
   </item>
   <item uid="flickr" valid="no" autocomplete="flickr">
     <title>Flickr</title>
@@ -82,12 +94,19 @@ Output
   <item uid="image" autocomplete="My holiday photo" type="file">
     <title>My holiday photo</title>
     <subtitle>~/Pictures/My holiday photo.jpg</subtitle>
-    <icon>public.jpeg</icon>
+    <icon type="filetype">public.jpeg</icon>
   </item>
   <item uid="home" arg="~/" valid="YES" autocomplete="Home" type="file">
     <title>Home Folder</title>
+    <icon type="fileicon">~/</icon>
     <subtitle>Home folder ~/</subtitle>
-    <icon>~/</icon>
+    <subtitle mod="shift">Subtext when shift is pressed</subtitle>
+    <subtitle mod="fn">Subtext when fn is pressed</subtitle>
+    <subtitle mod="ctrl">Subtext when ctrl is pressed</subtitle>
+    <subtitle mod="alt">Subtext when alt is pressed</subtitle>
+    <subtitle mod="cmd">Subtext when cmd is pressed</subtitle>
+    <text type="copy">Text when copying</text>
+    <text type="largetype">Text for LargeType</text>
   </item>
 </items>
 ```
