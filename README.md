@@ -11,7 +11,6 @@ go get "github.com/harasou/alfred"
 ## Example Usage
 
 ```go
-
 package main
 
 import (
@@ -30,8 +29,8 @@ func main() {
 		Autocomplete: "Desktop",
 		Type:         "file",
 		Title:        "Desktop",
-		Subtitle:     []alfred.Subtitle{{Text: "~/Desktop"}},
-		Icon:         alfred.Icon{Text: "~/Desktop", Type: "fileicon"},
+		Subtitle:     "~/Desktop",
+		IconType:     alfred.IconType{Text: "~/Desktop", Type: "fileicon"},
 	})
 
 	wf.AddItem(&alfred.Item{
@@ -39,7 +38,7 @@ func main() {
 		Valid:        "no",
 		Autocomplete: "flickr",
 		Title:        "Flickr",
-		Icon:         alfred.Icon{Text: "flickr.png"},
+		Icon:         "flickr.png",
 	})
 
 	wf.AddItem(&alfred.Item{
@@ -47,8 +46,8 @@ func main() {
 		Autocomplete: "My holiday photo",
 		Type:         "file",
 		Title:        "My holiday photo",
-		Icon:         alfred.Icon{Text: "public.jpeg", Type: "filetype"},
-		Subtitle:     []alfred.Subtitle{{Text: "~/Pictures/My holiday photo.jpg"}},
+		Subtitle:     "~/Pictures/My holiday photo.jpg",
+		IconType:     alfred.IconType{Text: "public.jpeg", Type: "filetype"},
 	})
 
 	wf.AddItem(&alfred.Item{
@@ -58,16 +57,16 @@ func main() {
 		Autocomplete: "Home",
 		Type:         "file",
 		Title:        "Home Folder",
-		Icon:         alfred.Icon{Text: "~/", Type: "fileicon"},
-		Subtitle: []alfred.Subtitle{
-			{Text: "Home folder ~/"},
+		IconType:     alfred.IconType{Text: "~/", Type: "fileicon"},
+		Subtitle:     "Home folder ~/",
+		SubtitleMod: []alfred.SubtitleMod{
 			{Text: "Subtext when shift is pressed", Mod: "shift"},
 			{Text: "Subtext when fn is pressed", Mod: "fn"},
 			{Text: "Subtext when ctrl is pressed", Mod: "ctrl"},
 			{Text: "Subtext when alt is pressed", Mod: "alt"},
 			{Text: "Subtext when cmd is pressed", Mod: "cmd"},
 		},
-		Text: []alfred.Text{
+		TextType: []alfred.TextType{
 			{Text: "Text when copying", Type: "copy"},
 			{Text: "Text for LargeType", Type: "largetype"},
 		},
@@ -79,7 +78,6 @@ func main() {
 Output
 
 ```xml
-
 <?xml version="1.0"?>
 <items>
   <item uid="desktop" arg="~/Desktop" valid="YES" autocomplete="Desktop" type="file">
@@ -98,13 +96,13 @@ Output
   </item>
   <item uid="home" arg="~/" valid="YES" autocomplete="Home" type="file">
     <title>Home Folder</title>
-    <icon type="fileicon">~/</icon>
-    <subtitle>Home folder ~/</subtitle>
     <subtitle mod="shift">Subtext when shift is pressed</subtitle>
     <subtitle mod="fn">Subtext when fn is pressed</subtitle>
     <subtitle mod="ctrl">Subtext when ctrl is pressed</subtitle>
     <subtitle mod="alt">Subtext when alt is pressed</subtitle>
     <subtitle mod="cmd">Subtext when cmd is pressed</subtitle>
+    <subtitle>Home folder ~/</subtitle>
+    <icon type="fileicon">~/</icon>
     <text type="copy">Text when copying</text>
     <text type="largetype">Text for LargeType</text>
   </item>
