@@ -11,7 +11,6 @@ go get "github.com/harasou/alfred"
 ## Example Usage
 
 ```go
-
 package main
 
 import (
@@ -31,7 +30,7 @@ func main() {
 		Type:         "file",
 		Title:        "Desktop",
 		Subtitle:     "~/Desktop",
-		Icon:         "~/Desktop",
+		IconType:     alfred.IconType{Text: "~/Desktop", Type: "fileicon"},
 	})
 
 	wf.AddItem(&alfred.Item{
@@ -48,7 +47,7 @@ func main() {
 		Type:         "file",
 		Title:        "My holiday photo",
 		Subtitle:     "~/Pictures/My holiday photo.jpg",
-		Icon:         "public.jpeg",
+		IconType:     alfred.IconType{Text: "public.jpeg", Type: "filetype"},
 	})
 
 	wf.AddItem(&alfred.Item{
@@ -58,8 +57,19 @@ func main() {
 		Autocomplete: "Home",
 		Type:         "file",
 		Title:        "Home Folder",
+		IconType:     alfred.IconType{Text: "~/", Type: "fileicon"},
 		Subtitle:     "Home folder ~/",
-		Icon:         "~/",
+		SubtitleMod: []alfred.SubtitleMod{
+			{Text: "Subtext when shift is pressed", Mod: "shift"},
+			{Text: "Subtext when fn is pressed", Mod: "fn"},
+			{Text: "Subtext when ctrl is pressed", Mod: "ctrl"},
+			{Text: "Subtext when alt is pressed", Mod: "alt"},
+			{Text: "Subtext when cmd is pressed", Mod: "cmd"},
+		},
+		TextType: []alfred.TextType{
+			{Text: "Text when copying", Type: "copy"},
+			{Text: "Text for LargeType", Type: "largetype"},
+		},
 	})
 
 }
@@ -69,11 +79,11 @@ Output
 
 ```xml
 <?xml version="1.0"?>
- <items>
+<items>
   <item uid="desktop" arg="~/Desktop" valid="YES" autocomplete="Desktop" type="file">
     <title>Desktop</title>
     <subtitle>~/Desktop</subtitle>
-    <icon>~/Desktop</icon>
+    <icon type="fileicon">~/Desktop</icon>
   </item>
   <item uid="flickr" valid="no" autocomplete="flickr">
     <title>Flickr</title>
@@ -82,12 +92,19 @@ Output
   <item uid="image" autocomplete="My holiday photo" type="file">
     <title>My holiday photo</title>
     <subtitle>~/Pictures/My holiday photo.jpg</subtitle>
-    <icon>public.jpeg</icon>
+    <icon type="filetype">public.jpeg</icon>
   </item>
   <item uid="home" arg="~/" valid="YES" autocomplete="Home" type="file">
     <title>Home Folder</title>
+    <subtitle mod="shift">Subtext when shift is pressed</subtitle>
+    <subtitle mod="fn">Subtext when fn is pressed</subtitle>
+    <subtitle mod="ctrl">Subtext when ctrl is pressed</subtitle>
+    <subtitle mod="alt">Subtext when alt is pressed</subtitle>
+    <subtitle mod="cmd">Subtext when cmd is pressed</subtitle>
     <subtitle>Home folder ~/</subtitle>
-    <icon>~/</icon>
+    <icon type="fileicon">~/</icon>
+    <text type="copy">Text when copying</text>
+    <text type="largetype">Text for LargeType</text>
   </item>
 </items>
 ```
